@@ -1,0 +1,36 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+    function addInnerHTML(value) {
+        var div = document.getElementById('box');
+        div.innerHTML = div.innerHTML + value + '<br />';
+        div.scrollTop = div.scrollHeight;
+    }
+
+    function changeStatImg(value) {
+        var imgdiv = document.getElementById('statimg');
+        imgdiv.innerHTML = value;
+    }
+    
+    window.onload = function () {
+        function auto_height() {
+            document.getElementById("box").style.height = document.documentElement.clientHeight - 50 + "px";
+        }
+        auto_height();
+        onresize = auto_height;
+    }
+
+    </script>
+</head>
+<body>
+    <div id="example">
+        <div id="example_main" style="padding-left:5px; padding-right:5px;padding-top:5px;padding-bottom:5px;border: 1px solid #999;">
+            <div id="box" style="overflow:auto; height: 500px; width: 100%; border: 0px; font-family: Georgia, serif; font-size:12px;">
+            </div>
+        </div>
+        <div id="statimg"></div>
+    </div>
+</body>
+</html>
