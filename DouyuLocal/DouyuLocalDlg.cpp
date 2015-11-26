@@ -77,6 +77,7 @@ CDouyuLocalDlg::CDouyuLocalDlg(CWnd* pParent /*=NULL*/)
 
 	m_DesStream.m_pDlg = this;
 	m_bClosing = false;
+	m_bAlwaysOnTop = true;
 
 }
 
@@ -95,6 +96,8 @@ BEGIN_MESSAGE_MAP(CDouyuLocalDlg, CDHtmlDialog)
 	ON_WM_CLOSE()
 	ON_WM_TIMER()
 	ON_UPDATE_COMMAND_UI(ID_FILE_CONNECTTOSERVER, &CDouyuLocalDlg::OnUpdateFileConnecttoserver)
+	ON_UPDATE_COMMAND_UI(ID_SETTTINGS_TOPMOSTWINDOW, &CDouyuLocalDlg::OnUpdateSetttingsTopmostwindow)
+	ON_COMMAND(ID_SETTTINGS_TOPMOSTWINDOW, &CDouyuLocalDlg::OnSetttingsTopmostwindow)
 END_MESSAGE_MAP()
 
 
@@ -133,6 +136,11 @@ BOOL CDouyuLocalDlg::OnInitDialog()
 	WSADATA wsaData;
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
 		return FALSE;
+
+	if (m_bAlwaysOnTop)
+	{
+		SetWindowPos(&CWnd::wndTopMost, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	}
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -545,6 +553,7 @@ LRESULT CDouyuLocalDlg::OnDataMsg(WPARAM wparam, LPARAM lparam)
 void CDouyuLocalDlg::OnClose()
 {
 	closesocket(m_DesStream.m_dessocket);
+	m_bClosing = true;
 	SetTimer(TIMER_QUITMSG, 200, NULL);
 	
 }
@@ -591,4 +600,24 @@ BOOL CDouyuLocalDlg::ContinueModal()
 	}
 
 	return CDHtmlDialog::ContinueModal();
+}
+
+
+void CDouyuLocalDlg::OnUpdateSetttingsTopmostwindow(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(m_bAlwaysOnTop ? BST_CHECKED : BST_UNCHECKED);
+}
+
+
+void CDouyuLocalDlg::OnSetttingsTopmostwindow()
+{
+	m_bAlwaysOnTop = !m_bAlwaysOnTop;
+	if (m_bAlwaysOnTop)
+	{
+		SetWindowPos(&CWnd::wndTopMost, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	}
+	else
+	{
+		SetWindowPos(&CWnd::wndNoTopMost, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	}
 }

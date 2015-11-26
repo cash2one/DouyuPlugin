@@ -61,6 +61,7 @@ public:
 	CString GetGiftImage(CString strgift);
 
 	bool m_bClosing;
+	bool m_bAlwaysOnTop;
 
 	virtual BOOL ContinueModal();
 
@@ -95,4 +96,6 @@ public:
 	afx_msg void OnClose();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnUpdateFileConnecttoserver(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateSetttingsTopmostwindow(CCmdUI *pCmdUI);
+	afx_msg void OnSetttingsTopmostwindow();
 };
