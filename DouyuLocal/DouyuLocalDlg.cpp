@@ -198,15 +198,7 @@ HCURSOR CDouyuLocalDlg::OnQueryDragIcon()
 
 void CDouyuLocalDlg::OnHelpAbout()
 {
-	CComQIPtr<IHTMLDocument2> phtmlDoc;
-	GetDHtmlDocument(&phtmlDoc);
-
-	CComDispatchDriver spScript;
-	phtmlDoc->get_Script(&spScript);
-
-	CComVariant varStr = _T("<span style=\"font-family: Georgia, serif; font-size:12px;\">Ğ»Ğ»ÔùËÍµÄ100ÓãÍè</span>");
-	CComVariant varRet;
-	spScript.Invoke2(_T("addInnerHTML"), &varStr, &varRet);
+	AddUserGift(50, L"haotrader", L"ÔŞ", 1);
 
 }
 
@@ -386,7 +378,7 @@ void CDouyuLocalDlg::AddUserGift(int userid, CString struser, CString strgift, i
 	{
 		CString strmsg;
 		strmsg.Format(L"<span style=\"color:blue\">%s</span>ÔùËÍ¸øÖ÷²¥%d¸ö%s<img src=\"%s\" />%dÁ¬»÷",
-			struser, giftnum, m_exeFolderPath + L"images\\" + GetGiftImage(strgift), giftcount);
+			struser, giftnum, strgift, m_exeFolderPath + L"images\\" + GetGiftImage(strgift), giftcount);
 
 		PrintText(strmsg);
 	}
