@@ -475,6 +475,7 @@ CString CDouyuLocalDlg::GetGiftImage(CString strgift)
 
 void CDouyuLocalDlg::AddUserChat(int userid, CString struser, CString strchat)
 {
+	strchat.Replace(L"%", L"%%");
 	CString strmsg;
 	strmsg.Format(L"<span style=\"color:blue\">%s: </span>%s", struser, strchat);
 
